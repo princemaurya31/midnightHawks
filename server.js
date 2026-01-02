@@ -1,4 +1,3 @@
-
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -12,16 +11,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// API routes
+// APIs
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/complaints", require("./routes/complaint"));
 
-// 👇 FRONTEND SERVE
+// ✅ serve frontend
 app.use(express.static(path.join(__dirname, "../frontend")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend", "index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`Server running on ${PORT}`)
+);

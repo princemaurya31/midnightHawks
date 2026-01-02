@@ -8,6 +8,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
@@ -18,7 +19,8 @@ app.use("/api/complaints", require("./routes/complaint"));
 // Serve frontend
 app.use(express.static(path.join(__dirname, "frontend")));
 
-app.get("*", (req, res) => {
+// FIXED route (VERY IMPORTANT)
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 

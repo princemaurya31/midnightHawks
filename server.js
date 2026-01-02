@@ -16,15 +16,15 @@ app.use(express.json());
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/complaints", require("./routes/complaint"));
 
-// Serve frontend
+// Serve frontend static files
 app.use(express.static(path.join(__dirname, "frontend")));
 
-// FIXED route (VERY IMPORTANT)
-app.get("/*", (req, res) => {
+// ✅ FIXED FOR NODE 22
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () =>
-  console.log(`Server running on port ${PORT}`)
-);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
